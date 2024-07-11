@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.tapadoo.books.data.model.Books
+import com.tapadoo.books.ui.view.BookAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,7 +35,7 @@ fun BookListScreen(navController: NavHostController,  bookIcon: Int) {
     val bookListState by viewModel.bookListState.collectAsState()
 
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Book List") }) }
+        topBar = { BookAppBar(title = "Book List", showBackButton = false, navController = navController) }
     ) { paddingValues ->
         Box(modifier = Modifier.padding(paddingValues)) {
             when (bookListState) {

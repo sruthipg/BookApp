@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.tapadoo.books.data.model.Book
+import com.tapadoo.books.ui.view.BookAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,16 +42,7 @@ fun BookDetailScreen(navController: NavHostController, bookId: Int, bookDetailIc
     }
 
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Book Detail") },
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Filled.ArrowBack, contentDescription = null)
-                    }
-                }
-            )
-        }
+        topBar = { BookAppBar(title = "Book Detail", showBackButton = true, navController = navController) }
     ) { paddingValues ->
         Box(modifier = Modifier.padding(paddingValues)) {
             when (bookDetailState) {

@@ -10,11 +10,7 @@ class BookActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyTheme {
-                MyApp {
-                    startActivity(ProfileActivity.newIntent(this, it))
-                }
-            }
+
         }
     }
 }

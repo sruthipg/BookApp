@@ -14,11 +14,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BookViewModel @Inject constructor(savedStateHandle: SavedStateHandle
-                                        ,private val bookDetailRepository: BookDetailRepository):
+class BookViewModel @Inject constructor(private val bookDetailRepository: BookDetailRepository):
     ViewModel(){
-    private val bookId: String = savedStateHandle["id"] ?:
-    throw IllegalArgumentException("Missing book ID")
+
     private val _bookDetailState = MutableStateFlow<BookViewState>(BookViewState.Loading)
     val bookDetailState: StateFlow<BookViewState> = _bookDetailState
 

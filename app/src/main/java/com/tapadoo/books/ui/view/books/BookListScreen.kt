@@ -33,7 +33,7 @@ fun BookListScreen(navController: NavHostController) {
             when (bookListState) {
                 is BooksViewState.Loading -> {
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        CircularProgressIndicator()
+                        Text("Loading...", modifier = Modifier.padding(16.dp))
                     }
                 }
                 is BooksViewState.Success -> {

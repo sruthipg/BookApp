@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -25,7 +23,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.tapadoo.books.data.model.Books
-import com.tapadoo.books.ui.view.BookAppBar
+import com.tapadoo.books.ui.view.books.viewstate.BooksViewModel
+import com.tapadoo.books.ui.view.books.viewstate.BooksViewState
+import com.tapadoo.books.ui.view.common.BookAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

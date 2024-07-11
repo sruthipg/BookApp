@@ -1,4 +1,4 @@
-package com.tapadoo.books.ui.view.books
+package com.tapadoo.books.ui.view.books.viewstate
 
 import com.tapadoo.books.data.model.Books
 

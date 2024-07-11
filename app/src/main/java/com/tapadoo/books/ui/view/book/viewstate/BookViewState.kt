@@ -1,7 +1,6 @@
-package com.tapadoo.books.ui.view.book
+package com.tapadoo.books.ui.view.book.viewstate
 
 import com.tapadoo.books.data.model.Book
-import com.tapadoo.books.ui.view.books.BooksViewState
 
 
 sealed class BookViewState {

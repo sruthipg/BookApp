@@ -1,4 +1,4 @@
-package com.tapadoo.books.ui.view.books
+package com.tapadoo.books.ui.view.books.viewstate
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -6,8 +6,6 @@ import com.tapadoo.books.data.repository.BookListRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
@@ -35,7 +33,9 @@ class BooksViewModel @Inject constructor(private val bookListRepository: BookLis
                         _bookListState.value = when (throwable) {
                             is IOException -> BooksViewState.Error.NetworkError
                             is HttpException -> BooksViewState.Error.ServerError
-                            else -> BooksViewState.Error.CustomError(throwable.localizedMessage ?: "Unexpected Error")
+                            else -> BooksViewState.Error.CustomError(
+                                throwable.localizedMessage ?: "Unexpected Error"
+                            )
                         }
                     }
                 )

@@ -11,9 +11,11 @@ import java.io.Serializable
     "author": "Mike Riley"
 * */
 
-data class Books( val id:Int,
-     val title: String,
-     val isbn: String,
-     val currencyCode: String,
-     val author: String
-    ): Serializable
+data class Books(
+    val id: Int,
+    val title: String,
+    val isbn: String,
+    val currencyCode: String,
+    val price: Double,
+    val author: String
+) : Serializable

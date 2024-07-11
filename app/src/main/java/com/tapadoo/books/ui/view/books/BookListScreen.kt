@@ -1,11 +1,15 @@
 package com.tapadoo.books.ui.view.books
 
+import android.graphics.drawable.Drawable
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
@@ -15,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -22,7 +27,8 @@ import com.tapadoo.books.data.model.Books
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BookListScreen(navController: NavHostController) {
+
+fun BookListScreen(navController: NavHostController,  bookIcon: Int) {
     val viewModel: BooksViewModel = hiltViewModel()
     val bookListState by viewModel.bookListState.collectAsState()
 
@@ -39,7 +45,7 @@ fun BookListScreen(navController: NavHostController) {
                 is BooksViewState.Success -> {
                     LazyColumn {
                         items((bookListState as BooksViewState.Success).books) { book ->
-                            BookItem(book) {
+                            BookItem(book, bookIcon) {
                                 navController.navigate("bookDetail/${book.id}")
                             }
                         }
@@ -65,16 +71,42 @@ fun BookListScreen(navController: NavHostController) {
 }
 
 @Composable
-fun BookItem(book: Books, onClick: () -> Unit) {
+fun BookItem(book: Books, bookIcon: Int, onClick: () -> Unit) {
+
     Card(
         modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth()
             .clickable { onClick() }
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = book.title, style = MaterialTheme.typography.titleLarge)
-            Text(text = "by ${book.author}", style = MaterialTheme.typography.bodyMedium)
+        Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+            Image(
+                painter = painterResource(bookIcon), // Replace with your vector drawable resource ID
+                contentDescription = null,
+                modifier = Modifier
+                    .size(50.dp)
+                    .padding(end = 16.dp)
+            )
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = book.title,
+                    style = MaterialTheme.typography.titleLarge,
+                    maxLines = 1
+                )
+                Text(
+                    text = "by ${book.author}",
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 1
+                )
+                Text(
+                    text = "ISBN: ${book.isbn}",
+                    style = MaterialTheme.typography.bodySmall
+                )
+                Text(
+                    text = "Currency:  ${book.price} ${book.currencyCode}",
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
         }
     }
 }

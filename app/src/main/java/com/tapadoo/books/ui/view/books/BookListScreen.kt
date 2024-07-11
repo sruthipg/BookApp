@@ -1,6 +1,5 @@
 package com.tapadoo.books.ui.view.books
 
-import android.graphics.drawable.Drawable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -12,6 +11,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -90,7 +91,7 @@ fun BookItem(book: Books, bookIcon: Int, onClick: () -> Unit) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = book.title,
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.titleMedium,
                     maxLines = 1
                 )
                 Text(
@@ -103,7 +104,7 @@ fun BookItem(book: Books, bookIcon: Int, onClick: () -> Unit) {
                     style = MaterialTheme.typography.bodySmall
                 )
                 Text(
-                    text = "Currency:  ${book.price} ${book.currencyCode}",
+                    text = "Price:  ${book.price} ${book.currencyCode}",
                     style = MaterialTheme.typography.bodySmall
                 )
             }

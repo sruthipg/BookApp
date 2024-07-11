@@ -1,6 +1,7 @@
 package com.tapadoo.books.data.model
 
 import java.io.Serializable
+
 /*
  "id": 100,
     "title": "Code Complete: A Practical Handbook of Software Construction",
@@ -10,10 +11,12 @@ import java.io.Serializable
     "currencyCode": "EUR",
     "author": "Mike Riley"
 * */
-data class Book( val id: Int,
-     val title: String,
-     val isbn: String,
-     val description: String,
-     val currencyCode: String,
-     val author: String
-    ): Serializable
+data class Book(
+    val id: Int,
+    val title: String,
+    val isbn: String,
+    val description: String,
+    val currencyCode: String,
+    val price: Double,
+    val author: String
+) : Serializable

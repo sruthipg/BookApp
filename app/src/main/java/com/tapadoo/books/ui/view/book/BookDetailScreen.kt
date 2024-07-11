@@ -1,11 +1,16 @@
 package com.tapadoo.books.ui.view.book
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -15,13 +20,19 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.tapadoo.books.data.model.Book
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BookDetailScreen(navController: NavHostController, bookId: Int) {
+fun BookDetailScreen(navController: NavHostController, bookId: Int, bookDetailIcon: Int) {
     val viewModel: BookViewModel = hiltViewModel()
     val bookDetailState by viewModel.bookDetailState.collectAsState()
 
@@ -48,15 +59,14 @@ fun BookDetailScreen(navController: NavHostController, bookId: Int) {
                         Text("Loading...", modifier = Modifier.padding(16.dp))
                     }
                 }
+
                 is BookViewState.Success -> {
                     val book = (bookDetailState as BookViewState.Success).book
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Text(text = "Title: ${book.title}", style = MaterialTheme.typography.titleLarge)
-                        Text(text = "Author: ${book.author}", style = MaterialTheme.typography.bodyLarge)
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(text = book.description, style = MaterialTheme.typography.bodyMedium)
-                    }
+
+                    BookDetailContent(book, bookDetailIcon)
+
                 }
+
                 is BookViewState.Error -> {
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                         Text(
@@ -73,6 +83,95 @@ fun BookDetailScreen(navController: NavHostController, bookId: Int) {
                 }
             }
         }
+    }
+}
+
+@Composable
+fun BookDetailContent(book: Book, bookDetailIcon: Int) {
+    Column(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .padding(16.dp)
+    ) {
+
+        Spacer(modifier = Modifier.height(8.dp))
+        BookIcon(
+            painter = painterResource(id = bookDetailIcon),
+            contentDescription = null,
+            modifier = Modifier
+                .size(200.dp)
+                .aspectRatio(1f)
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "Title:",
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
+        )
+        Text(
+            text = book.title,
+            style = MaterialTheme.typography.titleMedium,
+            color = Color.Black
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "Author:",
+            style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold)
+        )
+        Text(
+            text = book.author,
+            style = MaterialTheme.typography.bodyMedium,
+            color = Color.Black
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "ISBN:",
+            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold)
+        )
+        Text(
+            text = book.isbn,
+            style = MaterialTheme.typography.bodySmall,
+            color = Color.Black
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "Price:",
+            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold)
+        )
+        Text(
+            text = "${book.price} ${book.currencyCode}",
+            style = MaterialTheme.typography.bodySmall,
+            color = Color.Black
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = "Description:",
+            style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold)
+        )
+        Text(
+            text = book.description,
+            style = MaterialTheme.typography.bodyMedium,
+            color = Color.Black
+        )
+    }
+
+}
+
+@Composable
+fun BookIcon(
+    painter: Painter,
+    contentDescription: String?,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Image(
+            painter = painter,
+            contentDescription = contentDescription,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.FillWidth
+        )
     }
 }
 

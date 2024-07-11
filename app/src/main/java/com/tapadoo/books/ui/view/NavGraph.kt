@@ -17,7 +17,7 @@ fun NavGraph(startDestination: String = "bookList") {
         }
         composable("bookDetail/{bookId}") { backStackEntry ->
             val bookId = backStackEntry.arguments?.getString("bookId")?.toInt() ?: 0
-            BookDetailScreen(navController, bookId)
+            BookDetailScreen(navController, bookId,R.drawable.book_detail)
         }
     }
 }

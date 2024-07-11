@@ -60,7 +60,12 @@ fun BookDetailScreen(navController: NavHostController, bookId: Int) {
                 is BookViewState.Error -> {
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                         Text(
-                            text = (bookDetailState as BookViewState.Error).message,
+                            text = when (bookDetailState) {
+                                is BookViewState.Error.NetworkError -> "Network Error: Please check your internet connection."
+                                is BookViewState.Error.ServerError -> "Server Error: Please try again later."
+                                is BookViewState.Error.CustomError -> (bookDetailState as BookViewState.Error.CustomError).message
+                                else -> "Unknown Error"
+                            },
                             color = MaterialTheme.colorScheme.error,
                             modifier = Modifier.padding(16.dp)
                         )

@@ -9,6 +9,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,9 +18,7 @@ class BooksViewModel @Inject constructor(private val bookListRepository: BookLis
     ViewModel(){
 
     private val _bookListState = MutableStateFlow<BooksViewState>(BooksViewState.Loading)
-    val bookListState: StateFlow<BooksViewState> = _bookListState
-
-
+    val bookListState: StateFlow<BooksViewState> get() = _bookListState
 
     init {
         fetchBooks()
@@ -26,10 +26,20 @@ class BooksViewModel @Inject constructor(private val bookListRepository: BookLis
 
     private fun fetchBooks() {
         viewModelScope.launch {
-            bookListRepository.getBooks()
-                .onStart { _bookListState.value = BooksViewState.Loading }
-                .catch { e -> _bookListState.value = BooksViewState.Error(e.message ?: "Unknown Error") }
-                .collect { books -> _bookListState.value = BooksViewState.Success(books) }
+            bookListRepository.getBooks().collect { result ->
+                result.fold(
+                    onSuccess = { books ->
+                        _bookListState.value = BooksViewState.Success(books)
+                    },
+                    onFailure = { throwable ->
+                        _bookListState.value = when (throwable) {
+                            is IOException -> BooksViewState.Error.NetworkError
+                            is HttpException -> BooksViewState.Error.ServerError
+                            else -> BooksViewState.Error.CustomError(throwable.localizedMessage ?: "Unexpected Error")
+                        }
+                    }
+                )
+            }
         }
     }
-}
+    }

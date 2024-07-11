@@ -5,5 +5,9 @@ import com.tapadoo.books.data.model.Books
 sealed class BooksViewState {
     object Loading : BooksViewState()
     data class Success(val books: List<Books>) : BooksViewState()
-    data class Error(val message: String) : BooksViewState()
+    sealed class Error : BooksViewState() {
+        object NetworkError : Error()
+        object ServerError : Error()
+        data class CustomError(val message: String) : Error()
+    }
 }

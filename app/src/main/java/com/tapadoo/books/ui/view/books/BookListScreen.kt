@@ -46,9 +46,14 @@ fun BookListScreen(navController: NavHostController) {
                     }
                 }
                 is BooksViewState.Error -> {
+                    val errorMessage = when (val error = bookListState as BooksViewState.Error) {
+                        is BooksViewState.Error.NetworkError -> "Network error, please check your internet connection."
+                        is BooksViewState.Error.ServerError -> "Server error, please try again later."
+                        is BooksViewState.Error.CustomError -> error.message
+                    }
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                         Text(
-                            text = (bookListState as BooksViewState.Error).message,
+                            text = errorMessage,
                             color = Color.Red,
                             modifier = Modifier.padding(16.dp)
                         )

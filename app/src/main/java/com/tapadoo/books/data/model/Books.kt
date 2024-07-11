@@ -11,9 +11,9 @@ import java.io.Serializable
     "author": "Mike Riley"
 * */
 
-data class Books(private val id:Int,
-    private val title: String,
-    private val isbn: String,
-    private val currencyCode: String,
-    private val author: String
+data class Books( val id:Int,
+     val title: String,
+     val isbn: String,
+     val currencyCode: String,
+     val author: String
     ): Serializable

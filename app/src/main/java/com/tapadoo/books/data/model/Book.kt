@@ -10,10 +10,10 @@ import java.io.Serializable
     "currencyCode": "EUR",
     "author": "Mike Riley"
 * */
-data class Book(private val id: Int,
-    private val title: String,
-    private val isbn: String,
-    private val description: String,
-    private val currencyCode: String,
-    private val author: String
+data class Book( val id: Int,
+     val title: String,
+     val isbn: String,
+     val description: String,
+     val currencyCode: String,
+     val author: String
     ): Serializable

@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavHostController
+import androidx.compose.ui.text.style.TextOverflow
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,8 +31,10 @@ fun BookAppBar(title: String, showBackButton: Boolean = false, navController: Na
             ) {
                 Text(
                     text = title,
-                    color = Color.DarkGray, // Set the color to a cooler white
+                    color = Color.Yellow,
                     textAlign = TextAlign.Center,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.fillMaxWidth()
                 )
             }

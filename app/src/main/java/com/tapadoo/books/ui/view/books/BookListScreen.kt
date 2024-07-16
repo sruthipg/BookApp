@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.tapadoo.books.data.model.Books
+import com.tapadoo.books.ui.view.NavigationItem
 import com.tapadoo.books.ui.view.books.viewstate.BooksViewModel
 import com.tapadoo.books.ui.view.books.viewstate.BooksViewState
 import com.tapadoo.books.ui.view.common.BookAppBar
@@ -49,7 +50,7 @@ fun BookListScreen(navController: NavHostController,  bookIcon: Int) {
                     LazyColumn {
                         items((bookListState as BooksViewState.Success).books) { book ->
                             BookItem(book, bookIcon) {
-                                navController.navigate("bookDetail/${book.id}")
+                                navController.navigate("${NavigationItem.BookDetail.route}/${book.id}")
                             }
                         }
                     }

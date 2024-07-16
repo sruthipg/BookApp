@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -102,7 +103,9 @@ fun BookDetailContent(book: Book, bookDetailIcon: Int) {
         Text(
             text = book.title,
             style = MaterialTheme.typography.titleMedium,
-            color = Color.Black
+            color = Color.Black,
+            maxLines = Int.MAX_VALUE,
+            overflow = TextOverflow.Visible
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(

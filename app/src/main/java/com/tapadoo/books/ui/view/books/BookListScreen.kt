@@ -105,7 +105,7 @@ fun BookItem(book: Books, bookIcon: Int, onClick: () -> Unit) {
                     style = MaterialTheme.typography.bodySmall
                 )
                 Text(
-                    text = "Price:  ${book.price} ${book.currencyCode}",
+                    text = "Price: ${book.price / 100.0} ${book.currencyCode}",
                     style = MaterialTheme.typography.bodySmall
                 )
             }

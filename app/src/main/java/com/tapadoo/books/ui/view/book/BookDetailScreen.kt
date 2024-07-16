@@ -130,7 +130,7 @@ fun BookDetailContent(book: Book, bookDetailIcon: Int) {
             style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold)
         )
         Text(
-            text = "${book.price} ${book.currencyCode}",
+            text = "${book.price / 100.0} ${book.currencyCode}",
             style = MaterialTheme.typography.bodySmall,
             color = Color.Black
         )
